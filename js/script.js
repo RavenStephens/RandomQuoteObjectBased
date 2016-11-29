@@ -20,21 +20,17 @@ var quotes= [{
   quote: 'Yet, do thy worst old Time: despite thy wrong, my love shall in my verse ever live young.',
   source: 'William Shakespeare',
   citation: 'Sonnet XIX',
-  year: '',
   tags: ['challenges', 'time', 'Sonnet', 'poetry' ]
   },
   {
   quote: 'Come what come may, time and the hour runs through the roughest day.',
   source: 'Macbeth',
-  citation: '',
   year: '1605',
   tags: ['moving on','challenge accepted']
   },
   {
   quote: 'Swear not by the moon, the inconstant moon, That monthly changes in her circled orb, Lest that thy love prove likewise variable.',
   source: 'Juliet',
-  citation: '',
-  year: '',
   tags: ['Juliet','roofie from a priest','get it together']
   },
 ];
@@ -49,6 +45,7 @@ function printQuote(){
   document.getElementById('tags').innerHTML= getQuoteTags(selectedQuoteIndex);
   console.log(getQuoteTags(selectedQuoteIndex));
   document.body.style.backgroundColor=getRandomColor();
+
 }
 
   //Universal random number generator. Takes a MULTIPLIER argument.
@@ -78,11 +75,11 @@ function getRandomQuote(){
     printedHTML+= '<p class="source">'+ quotes[selectedQuoteIndex].source;
 
         //Checks to see if there is a citation. If so, proper HTML is added
-    if(quotes[selectedQuoteIndex].citation !== ''){
+    if(quotes[selectedQuoteIndex].citation !== undefined){
       printedHTML+= '<span class="citation">' +quotes[selectedQuoteIndex].citation+'</span>';
     }
         //Checks to see if there is a year. If so, proper HTML is added
-    if(quotes[selectedQuoteIndex].year !== ''){
+    if(quotes[selectedQuoteIndex].year !== undefined){
       printedHTML+='<span class="year">' +quotes[selectedQuoteIndex].year+ '</span>';
     }
 
@@ -119,12 +116,9 @@ function getRandomColor(){
 
   //Prints first quote upon loading the page
 window.onload=printQuote();
-  //Sets up button
-document.getElementById('loadQuote').addEventListener("click", printQuote, false);
 
-  //Sets 15 second interval
-setInterval(
-  function (){
-    printQuote()
-  }
-, 15000);
+  //Sets 15 second interval.
+window.setInterval(printQuote(), 15000);
+
+//Sets up button
+document.getElementById('loadQuote').addEventListener("click", printQuote, false);

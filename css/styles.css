@@ -24,6 +24,7 @@ body {
   line-height: 1.1;
   position: relative;
   margin: 0;
+  text-shadow: 1px 1px black;
   }
 .quote:before, .quote:after {
   font-size: 6rem;
