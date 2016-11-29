@@ -1,56 +1,64 @@
 //Thanks for grading. I have tried to make it as easy as possible.
+//In the quotes array, there is some missing information to show how
+//the iff statements work in the getRandomQuote function.
 
 var quotes= [{
   quote: 'We are such stuff as dreams are made on; and our little lives are rounded with a sleep.',
   source: 'Prospero',
   citation: 'The Tempest',
   year: '1611',
-  tags: []
+  tags: ['dreams','tempest','sleep']
   },
   {
   quote: 'This above all: to thine ownself be true. And it must follow, as the night the day, Thou canst not then be false to any man',
   source: 'Polonius',
   citation: 'Hamlet',
   year: '1600',
-  tags: []
+  tags: ['fatherly advice','truth']
   },
   {
   quote: 'Yet, do thy worst old Time: despite thy wrong, my love shall in my verse ever live young.',
   source: 'William Shakespeare',
   citation: 'Sonnet XIX',
   year: '',
-  tags: []
+  tags: ['challenges', 'time', 'Sonnet', 'poetry' ]
   },
   {
   quote: 'Come what come may, time and the hour runs through the roughest day.',
   source: 'Macbeth',
   citation: '',
   year: '1605',
-  tags: []
+  tags: ['moving on','challenge accepted']
   },
   {
   quote: 'Swear not by the moon, the inconstant moon, That monthly changes in her circled orb, Lest that thy love prove likewise variable.',
   source: 'Juliet',
   citation: '',
   year: '',
-  tags: []
+  tags: ['Juliet','roofie from a priest','get it together']
   },
 ];
 var availQuotesIndex=[];
 var printedHTML;
+var selectedQuoteIndex;
+
 
 function printQuote(){
   getRandomQuote();
   document.getElementById('quote-box').innerHTML= printedHTML;
+  document.getElementById('tags').innerHTML= getQuoteTags(selectedQuoteIndex);
+  console.log(getQuoteTags(selectedQuoteIndex));
   document.body.style.backgroundColor=getRandomColor();
-
 }
 
+  //Universal random number generator. Takes a MULTIPLIER argument.
+  // ie. if I'm generating RGB values multip=256
 function getRandomNum(multip){
   var randomNum= Math.floor(Math.random()*(multip));
   return randomNum;
 }
 
+  //reset function
 function resetAvailQuotes(){
   for(i=0;i<quotes.length; i++){
     availQuotesIndex.push(i);
@@ -58,12 +66,14 @@ function resetAvailQuotes(){
   }
 }
 
+  //The meat and potatoes
 function getRandomQuote(){
   if(availQuotesIndex.length>0){
+        //chooses a random index from availQuotesIndex array
     var whichIndex= getRandomNum(availQuotesIndex.length);
-
-    selectedQuoteIndex=availQuotesIndex.splice(whichIndex,1);
-
+        //Removes random index from array, places it in variable.
+    selectedQuoteIndex = availQuotesIndex.splice(whichIndex,1);
+        //Lets build the HTML!
     printedHTML='<p class="quote">'+quotes[selectedQuoteIndex].quote+'</p>';
     printedHTML+= '<p class="source">'+ quotes[selectedQuoteIndex].source;
 
@@ -85,17 +95,27 @@ function getRandomQuote(){
     console.log('availQuotesIndex: '+availQuotesIndex);
     console.log('------------------------');
     return printedHTML;
+
   }else{
+    //Resets the availQuotesIndex array if there are no more unused quotes
     resetAvailQuotes();
     getRandomQuote();
   }
 }
 
+  //getQuoteTags assembles tagHTML
+function getQuoteTags(index){
+  var tagHTML= '<p class="tags">'+quotes[index].tags.join('  |  ')+'</p>';
+  return tagHTML;
+}
+
+  //assembles rgb() value for background-color
 function getRandomColor(){
   var randColor= 'rgb('+getRandomNum(256)+', '+getRandomNum(256)+', '+getRandomNum(256)+')';
   return randColor;
 }
 
+//Applicaton
 
   //Prints first quote upon loading the page
 window.onload=printQuote();
