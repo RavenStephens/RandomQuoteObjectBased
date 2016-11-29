@@ -43,7 +43,7 @@ function printQuote(){
   getRandomQuote();
   document.getElementById('quote-box').innerHTML= printedHTML;
   document.getElementById('tags').innerHTML= getQuoteTags(selectedQuoteIndex);
-  console.log(getQuoteTags(selectedQuoteIndex));
+  //console.log(getQuoteTags(selectedQuoteIndex));
   document.body.style.backgroundColor=getRandomColor();
 
 }
